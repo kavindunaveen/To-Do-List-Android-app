@@ -3,8 +3,8 @@ package com.example.todolistapplication.Model;
 public class ToDoModel {
     private int id, status;
     private String task;
-    private String date; // Add this line for date
-    private String time; // Add this line for time
+    private String date;
+    private String time;
 
     public int getId() {
         return id;
@@ -29,8 +29,6 @@ public class ToDoModel {
     public void setTask(String task) {
         this.task = task;
     }
-
-    // Add getters and setters for date and time
 
     public String getDate() {
         return date;
