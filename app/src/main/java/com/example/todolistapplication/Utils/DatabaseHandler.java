@@ -28,8 +28,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String STATUS = "status";
 
     // SQL query to create the ToDo table
-    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + TASK + " TEXT, " + STATUS + " INTEGER)";
+    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TABLE + "("
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TASK + " TEXT, "
+            + STATUS + " INTEGER)";
+
 
     // SQLiteDatabase instance
     private SQLiteDatabase db;
@@ -45,6 +48,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TODO_TABLE);
     }
 
+
+
     // Called when the database needs to be upgraded
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -53,7 +58,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Create tables again
         onCreate(db);
     }
-
 
     public void openDatabase() {
         db = this.getWritableDatabase();
@@ -71,25 +75,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public List<ToDoModel> getAllTasks() {
         List<ToDoModel> taskList = new ArrayList<>();
-        Cursor cur = null;
-        db.beginTransaction();
+        Cursor cursor = null;
+
         try {
-            cur = db.query(TODO_TABLE, null, null, null, null, null, null, null);
-            if (cur != null) {
-                if (cur.moveToFirst()) {
-                    do {
-                        ToDoModel task = new ToDoModel();
-                        task.setId(cur.getInt(cur.getColumnIndex(ID)));
-                        task.setTask(cur.getString(cur.getColumnIndex(TASK)));
-                        task.setStatus(cur.getInt(cur.getColumnIndex(STATUS)));
-                        taskList.add(task);
-                    } while (cur.moveToNext());
-                }
+            cursor = db.query(
+                    TODO_TABLE,
+                    new String[]{ID, TASK, STATUS},
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    ToDoModel task = new ToDoModel();
+                    task.setId(cursor.getInt(cursor.getColumnIndex(ID)));
+                    task.setTask(cursor.getString(cursor.getColumnIndex(TASK)));
+                    task.setStatus(cursor.getInt(cursor.getColumnIndex(STATUS)));
+                    taskList.add(task);
+                } while (cursor.moveToNext());
             }
         } finally {
-            db.endTransaction();
-            assert cur != null;
-            cur.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return taskList;
     }

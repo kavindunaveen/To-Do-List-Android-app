@@ -18,18 +18,7 @@
             android:layout_height="wrap_content"
             android:text="sample one"
             android:paddingStart="8dp"
-            android:buttonTint="@android:color/holo_green_dark"/>
-
-        <!-- Add the following TextView for date and time in task_layout.xml -->
-        <TextView
-            android:id="@+id/dateAndTimeTextView"
-            android:layout_width="320dp"
-            android:layout_height="30dp"
-            android:layout_below="@id/todoCheckBox"
-            android:layout_marginTop="4dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="30sp" />
-
+            android:buttonTint="@android:color/holo_blue_dark"/>
 
     </RelativeLayout>
 

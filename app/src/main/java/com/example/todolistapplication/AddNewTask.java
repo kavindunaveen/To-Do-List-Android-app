@@ -6,8 +6,6 @@
 package com.example.todolistapplication;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,17 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.example.todolistapplication.Model.ToDoModel;
 import com.example.todolistapplication.Utils.DatabaseHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import java.util.Calendar;
+
 
 public class AddNewTask extends BottomSheetDialogFragment {
 
@@ -39,11 +35,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
     private EditText newTaskText;
     private Button newTaskSaveButton;
     private DatabaseHandler db;
-    private TextView dateTextView;
-    private TextView timeTextView;
-    private DatePicker datePicker;
-    private TimePicker timePicker;
-    private Calendar calendar;
 
     // Creates a new instance of AddNewTask
     public static AddNewTask newInstance() {
@@ -77,11 +68,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
         // Initialize
         newTaskText = requireView().findViewById(R.id.newTaskText);
         newTaskSaveButton = getView().findViewById(R.id.newTaskBtn);
-        dateTextView = requireView().findViewById(R.id.dateTextView);
-        timeTextView = requireView().findViewById(R.id.timeTextView);
-        datePicker = requireView().findViewById(R.id.datePicker);
-        timePicker = requireView().findViewById(R.id.timePicker);
-        calendar = Calendar.getInstance();
 
         // Check if it is an update operation
         boolean isUpdate = false;
@@ -127,8 +113,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 String text = newTaskText.getText().toString();
-                String date = dateTextView.getText().toString();
-                String time = timeTextView.getText().toString();
 
                 if (finalIsUpdate) {
                     db.updateTask(bundle.getInt("id"), text);
@@ -136,70 +120,11 @@ public class AddNewTask extends BottomSheetDialogFragment {
                     ToDoModel task = new ToDoModel();
                     task.setTask(text);
                     task.setStatus(0);
-                    task.setDate(date);
-                    task.setTime(time);
                     db.insertTask(task);
                 }
                 dismiss();
             }
         });
-
-        dateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
-
-        timeTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
-    }
-
-    // Display the date picker dialog
-    public void showDatePicker() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                requireContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, month);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                        String formattedDate = android.text.format.DateFormat.format("yyyy-MM-dd", calendar).toString();
-                        dateTextView.setText(formattedDate);
-                    }
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
-    }
-
-    // Display the time picker dialog
-    public void showTimePicker() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(
-                requireContext(),
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-
-                        String formattedTime = String.format("%02d:%02d", hourOfDay, minute);
-                        timeTextView.setText(formattedTime);
-                    }
-                },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                true // 24-hour format
-        );
-        timePickerDialog.show();
     }
 
     // Called when the dialog is dismissed
