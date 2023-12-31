@@ -1,4 +1,4 @@
-**Assignment: Native To-Do List App (Beyond IT Solutions Pvt.Ltd)**
+**Assignment: Native To-Do List App (Beyond IT Solutions Pvt. Ltd)**
 
 
 **Overview**
@@ -18,7 +18,7 @@ App language - Java
 **3. Task Operations**
 •	Create New Task: Utilize the floating action button to open a bottom sheet, enabling you to add a new task efficiently.
 •	Edit Task: Swipe left to right on a task to access the editing feature, allowing you to make necessary modifications.
-•	Delete Task:  By swiping right to left you can delete a task. After swipe popping-up a confirmation button. Only upon confirmation, the task will be permanently deleted, preventing accidental removal and enhancing user experience.
+•	Delete Task:  By swiping right to left you can delete a task. After swiping up a confirmation button. Only upon confirmation, the task will be permanently deleted, preventing accidental removal and enhancing user experience.
 
 **4. Local Storage Implementation**
 •	SQLite Database: The app utilizes SQLite Database for local storage, ensuring persistent storage of tasks. This allows users to access their tasks even after closing and reopening the application.
@@ -36,39 +36,4 @@ To get started with the TODO List Android App, follow these steps:
 **Installation**
 1.	Download the APK file from [http://bit.ly/4aSDdiv].
 2.	Enable installation from unknown sources in your Android device settings.
-3.	Install the app by following on-screen instructions.
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![image](https://github.com/kavindunaveen/To-Do-List-Android-app/assets/99306582/1c334f61-602b-42b6-a93d-f6d7230ff95f)
+3.	Install the app by following the on-screen instructions.
