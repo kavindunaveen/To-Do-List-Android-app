@@ -1,5 +1,5 @@
 
-**Assignment: Native To-Do List App (Beyond IT Solutions Pvt. Ltd)**
+**Assignment: Native To-Do List App**
 
 
 Overview
